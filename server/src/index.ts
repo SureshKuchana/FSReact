@@ -1,29 +1,12 @@
 import express from 'express';
-import { listings } from './listings';
+import { ApolloServer } from 'apollo-server-express';
+import { typeDefs, resolvers } from './graphql';
 
 const app = express();
 const port = 9000;
 
-app.use(express.json());
-
-app.get("/", (_req, res) => {
-  res.send("Typescript from Server 1");
-});
-
-//get listings
-//deleting listings
-
-app.get('/listings', (_req, res) => {
-  return res.send(listings);
-})
-
-
-app.post('/delete-listing', (_req, res) => {
-  const id: string = _req.body.id;
-  return res.send(listings.filter((list) => list.id === id));
-})
-
-
+const server = new ApolloServer({ typeDefs, resolvers });
+server.applyMiddleware({ app, path: '/api' });
 
 // app listening to port
 app.listen(port, () => {
