@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 import { server } from '../../lib/api';
-import { ListingsData } from './types';
+import {
+  ListingsData,
+  DeleteListingData,
+  DeleteListingVariables,
+} from './types';
 
 const LISTINGS = `
   query Listings{
@@ -17,20 +21,42 @@ const LISTINGS = `
   }
 `;
 
+const DELETE_LISTING = `
+  mutation DeleteListing($id: ID!){
+    deleteListing(id: $id){
+      id
+    }
+  }
+`;
+
 interface Props {
   title: string;
 }
 
 export const Listings: FC<Props> = ({ title }) => {
   const fetchListings = async (): Promise<void> => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data } = await server.fetch({ query: LISTINGS });
+    const { data } = await server.fetch<ListingsData>({ query: LISTINGS });
     console.log(' data ', data);
   };
+
+  const deleteListing = async () => {
+    const { data } = await server.fetch<
+      DeleteListingData,
+      DeleteListingVariables
+    >({
+      query: DELETE_LISTING,
+      variables: {
+        id: '615ef06e743fb01945687988',
+      },
+    });
+    console.log(' data ', data);
+  };
+
   return (
-    <>
+    <div>
       <h2>{title}</h2>
       <button onClick={fetchListings}>Refresh</button>
-    </>
+      <button onClick={deleteListing}>Delete a Listing!</button>
+    </div>
   );
 };
