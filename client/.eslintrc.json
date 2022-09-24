@@ -1,13 +1,15 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "jest": true
   },
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
     "standard-with-typescript",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
   ],
   "overrides": [],
   "parserOptions": {
@@ -15,10 +17,10 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
-    "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": ["error"],
+    "no-use-before-define": ["off", { "variables": false }],
+    "@typescript-eslint/no-use-before-define": ["warn"],
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx", ".ts"] }],
     "semi": "off",
     "@typescript-eslint/semi": "off",
@@ -38,9 +40,23 @@
       }
     ],
     "no-return-await": "off",
-    // "@typescript-eslint/triple-slash-reference": "off",
+    "@typescript-eslint/triple-slash-reference": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-misused-promises": "warn",
-    "@typescript-eslint/return-await": "off"
+    "@typescript-eslint/return-await": "off",
+    "@typescript-eslint/no-redeclare": "off",
+    "space-before-blocks": "off",
+    "@typescript-eslint/space-before-blocks": "off",
+    "@typescript-eslint/object-curly-spacing": "off",
+    "react/react-in-jsx-scope": "off",
+    "camelcase": "error",
+    "spaced-comment": "error",
+    "quotes": ["error", "single"],
+    "no-duplicate-imports": "error"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
   }
 }

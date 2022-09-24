@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { server } from '../../lib/api';
 import { ListingsData } from './types';
 
@@ -21,10 +21,11 @@ interface Props {
   title: string;
 }
 
-export const Listings = ({ title }: Props) => {
+export const Listings: FC<Props> = ({ title }) => {
   const fetchListings = async (): Promise<void> => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data } = await server.fetch({ query: LISTINGS });
+    console.log(' data ', data);
   };
   return (
     <>
