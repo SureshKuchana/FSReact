@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 'use strict';
 var __awaiter =
   (this && this.__awaiter) ||
